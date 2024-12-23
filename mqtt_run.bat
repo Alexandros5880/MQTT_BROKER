@@ -1,0 +1,6 @@
+@echo off
+echo Starting MQTT Broker...
+start pipenv run python mqtt_broker.py
+
+echo Starting ngrok...
+start ngrok start --config ngrok.yml --all
