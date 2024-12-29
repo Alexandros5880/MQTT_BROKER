@@ -1,12 +1,15 @@
 ### Run Windows:
-    `./mqtt_run.bat`
+`./mqtt_run.bat`
 
 ### Run Linux:
-    `./mqtt_run.sh`
+`./mqtt_run.sh`
 
-### MQTT SERVER:
-    `pipenv install`
-    `pipenv run python mqtt_broker.py`
+### RUN MQTT SERVER:
+`pipenv run python mqtt_broker.py; exec bash`
 
 ### NGROK:
-    `ngrok start --config ngrok.yml --all`
+`ngrok start --config ngrok.yml --all`
+
+### Auto start app on windows 10:
+Put this file `mqtt_run.bat` into this diractory:
+`C:\Users\User\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
