@@ -16,7 +16,7 @@ echo Checking for Python 3 installation...
 python --version >nul 2>&1
 if %errorLevel% neq 0 (
     echo Python 3 is not installed. Installing Python 3...
-    winget install -e --id Python.Python.3
+    winget install --id Python.Python.3.12
     if %errorLevel% neq 0 (
         echo Python 3 installation failed. Ensure winget is properly configured and retry.
         pause
@@ -24,6 +24,22 @@ if %errorLevel% neq 0 (
     )
 ) else (
     echo Python 3 is already installed.
+)
+
+echo Checking for Pipenv installation...
+pipenv --version >nul 2>&1
+if %errorLevel% neq 0 (
+    echo Pipenv is not installed. Installing Pipenv...
+    pip install pipenv
+    if %errorLevel% neq 0 (
+        echo Pipenv installation failed. Ensure Python and pip are installed and retry.
+        pause
+        exit /b
+    ) else (
+        echo Pipenv installed successfully.
+    )
+) else (
+    echo Pipenv is already installed.
 )
 
 echo Checking for NGROK installation...
