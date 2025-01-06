@@ -60,12 +60,7 @@ echo "Current Directory: $(pwd)"
 
 echo "Starting MQTT Broker..."
 if [ -f mqtt_broker.py ]; then
-    pipenv run python mqtt_broker.py
-    if [ $? -ne 0 ]; then
-        echo "pipenv run python mqtt_broker.py failed to run."
-        read -p "Press Enter to exit..."
-        exit 1
-    fi
+    gnome-terminal -- bash -c "pipenv run python mqtt_broker.py; if [ $? -ne 0 ]; then echo 'pipenv run python mqtt_broker.py failed to run'; read -p 'Press Enter to exit...'; fi"
 else
     echo "mqtt_broker.py not found in the current directory."
     read -p "Press Enter to exit..."
@@ -77,4 +72,11 @@ if [ -f ngrok.yml ]; then
     ngrok start --config ngrok.yml --all
     if [ $? -ne 0 ]; then
         echo "NGROK failed to start. Ensure ngrok.yml is properly configured."
-        read -p "Press Enter to exi
+        read -p "Press Enter to exit..."
+        exit 1
+    fi
+else
+    echo "ngrok.yml not found in the current directory."
+    read -p "Press Enter to exit..."
+    exit 1
+fi

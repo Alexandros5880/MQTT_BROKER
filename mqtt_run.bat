@@ -64,12 +64,7 @@ echo Current Directory: %cd%
 
 echo Starting MQTT Broker...
 if exist mqtt_broker.py (
-    pipenv run python mqtt_broker.py
-    if %errorLevel% neq 0 (
-        echo "pipenv run python mqtt_broker.py" failed to run.
-        pause
-        exit /b
-    )
+    start cmd /k "pipenv run python mqtt_broker.py || echo pipenv run python mqtt_broker.py failed to run && pause && exit"
 ) else (
     echo mqtt_broker.py not found in the current directory.
     pause
