@@ -56,8 +56,36 @@ if %errorLevel% neq 0 (
     echo NGROK is already installed.
 )
 
+:: Change the working directory to the location of the .bat file
+cd /d "%~dp0"
+
+:: Confirm the current directory (debugging step)
+echo Current Directory: %cd%
+
 echo Starting MQTT Broker...
-start pipenv run python mqtt_broker.py
+if exist mqtt_broker.py (
+    pipenv run python mqtt_broker.py
+    if %errorLevel% neq 0 (
+        echo "pipenv run python mqtt_broker.py" failed to run.
+        pause
+        exit /b
+    )
+) else (
+    echo mqtt_broker.py not found in the current directory.
+    pause
+    exit /b
+)
 
 echo Starting NGROK...
-start ngrok start --config ngrok.yml --all
+if exist ngrok.yml (
+    ngrok start --config ngrok.yml --all
+    if %errorLevel% neq 0 (
+        echo NGROK failed to start. Ensure ngrok.yml is properly configured.
+        pause
+        exit /b
+    )
+) else (
+    echo ngrok.yml not found in the current directory.
+    pause
+    exit /b
+)
